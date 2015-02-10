@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FTA</title>
+    <link href="css/bootstrap.min.css?2014-04-01" rel="stylesheet">
+    <link href="css/bootstrap-non-resp.css?2014-04-01" rel="stylesheet">
+    <link href="plugin/font-awesome/css/font-awesome.min.css?2014-04-01" rel="stylesheet">
+    <link href="plugin/bootstrap-datepicker/css/datepicker3.css?2014-04-01" rel="stylesheet">
+    <link href="plugin/select2/select2.css?2014-04-01" rel="stylesheet">
+    <link href="css/app.css?2014-04-01" rel="stylesheet">
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <script src="js/jquery.min.js?2014-04-01"></script>
+    <script src="js/bootstrap.min.js?2014-04-01"></script>
+    <script src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.js?2014-04-01"></script>
+    <script src="plugin/bootstrap-datepicker/js/locales/bootstrap-datepicker.et.js?2014-04-01"></script>
+    <script src="plugin/select2/select2.min.js?2014-04-01"></script>
+    <script src="js/app.js?2014-04-01"></script>
+    <script src="js/jquery.geocomplete.min.js?2014-04-01"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        var base_url = '/';
+    </script>
+</head>
+<body>
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="#">Project name</a> -->
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/invoice">Arvete kinnitamine</a></li>
+                <li><a href="/company">Tarnijad</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seaded <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/settings/user">Kasutajad</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Import <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/import/invoice">Ostuarved</a></li>
+                        <li><a href="/import/object">Objektid</a></li>
+                        <li><a href="/import/company">Tarnijad</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/report/edited_invoices">Eksportimata arved (0)</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-action="msg/panel/open"><i class="fa fa-comments"></i> Sõnumid <b class="caret"></b></a>
+                    <ul class="dropdown-menu msgs">
+                        <li>
+                            <!--
+                                                    <div class="btns clearfix">
+                                                        <button class="btn btn-sm btn-green pull-right"><i class="fa fa-comment"></i> Uus sõnum</button>
+                                                        <button class="btn btn-sm btn-grey pull-right"><i class="fa fa-inbox"></i> Postkasti</button>
+                                                    </div>
+                            -->
+                            <div class="msgs-content">
+                                Laen...
+                            </div>
+                            <a data-sheet-id="12" data-title="Sõnumid" data-type="msgs" data-action="open-sheet-modal" href="#messages"
+                               data-target="#messages" class="btn btn-grey btn-sm pull-right" id="new-msg">Uus sõnum</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Administraator <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <!-- 	                <li><a href="/profile">Minu andmed</a></li> -->
+                        <!-- 	                <li class="divider"></li> -->
+                        <li><a href="/?action=logout">Logi välja</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+<div class="container box">
+    <div class="left-content">
+        <ul>
+            <li class="active">
+                <a href="/settings/user"><i class="fa fa-list"></i> Kasutajad</a>
+            </li>
+        </ul>
+    </div>
+    <div class="right-content">
+        <div class="right-content-header">
+            <div class="pull-left">Uus kasutaja</div>
+            <div class="pull-right"><a href="#" onclick="window.print(); return false;"><i class="fa fa-print"></i> Prindi</a></div>
+        </div>
+        <div class="clear"></div>
+        <form method="post">
+            <input type="hidden" name="action" value="insert">
+            <button class="btn btn-sm btn-green pull-right" type="submit">Salvesta</button>
+            <a href="/settings/user" class="btn btn-sm btn-grey pull-right">
+                <i class="fa fa-arrow-circle-left"></i> Tagasi		</a>
+            <div class="clear empty-row"></div>
+            <table class="form-table">
+                <tbody>
+                <tr>
+                    <th>* Nimi</th>
+                    <td><input type="text" class="field" name="name" value=""></td>
+                </tr>
+                <tr>
+                    <th>* E-post</th>
+                    <td><input type="text" class="field" name="email" value=""></td>
+                </tr>
+                <tr>
+                    <th>* Roll</th>
+                    <td><select name='role' class='field-select' id='' data-url='' data-target=''><option value="user">Kasutaja</option><option value="admin">Administraator</option></select></td>
+                </tr>
+                <tr>
+                    <th>Hansa kood</th>
+                    <td><input type="text" class="field" name="hansa_user" value=""></td>
+                </tr>
+                <tr>
+                    <th>Parool</th>
+                    <td>Genereeritakse automaatselt ja saadetakse e-mailile</td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="footer">
+    <div class="container">
+        © 2014 THS Tarkvara OÜ
+    </div>
+</div>
+<div class="modal fade" id="messages" tabindex="-1" role="dialog" aria-labelledby="sheet-modal-lbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title clearfix" id="sheet-modal-lbl">
+                    <div class="title-left">Uus sõnum</div>
+                    <div class="title-right"></div>
+                </h4>
+            </div> <!-- /.modal-header -->
+            <form method="post" id="message-form" class="clearfix" data-action="mail/send">
+                <div class="modal-body clearfix">
+                    <div>
+                        <select name='recipient_id' class='field-select' id='' data-url='' data-target=''><option value="0">Kõik kasutajad</option><option value="572">1024945725</option><option value="570">1158052369</option><option value="569">11857828</option><option value="568">1228109609</option><option value="564">1618493918</option><option value="566">1699657704</option><option value="574">1896930906</option><option value="573">1961869718</option><option value="565">250871735</option><option value="571">673155350</option><option value="567">877570385</option><option value="60">Jaan Olde</option><option value="2">Janno Metsa</option><option value="61">Janus Metsa</option><option value="62">Mikk Kurrikoff</option><option value="63">Peeter Ignaatjev</option><option value="64">Raivo Lipping</option></select>								<div class="empty-row"></div>
+                        <textarea name="body" class="field" placeholder="Sinu sõnum..."></textarea>
+                    </div>
+                </div> <!-- /.modal-body -->
+                <div class="modal-footer">
+                    <button class='btn btn-green btn-sm pull-left' type='submit'>Saada</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Sulge</button>
+                </div><!-- /.modal-footer -->
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $(function() {
+        $('#new-msg').click(function() {
+            $('#messages').modal();
+        })
+    });
+</script>
+</body>
+</html>
+
