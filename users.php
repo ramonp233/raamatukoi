@@ -56,6 +56,9 @@ if($_SESSION['admin'] == 0){
                 <li class="active">
                     <a href="users.php"><i class="fa fa-list"></i> Kasutajad</a>
                 </li>
+                <li>
+                    <a href="books-out.php"><i class="fa fa-list"></i> Välja antud raamatud</a>
+                </li>
             <?php
             }
             ?>
