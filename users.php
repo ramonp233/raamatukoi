@@ -8,6 +8,11 @@ if(!$_SESSION['username']){
 	header("Location: /raamatukoi/");
 	exit();
 }
+if($_SESSION['admin'] == 0){
+
+    header("Location: /raamatukoi/home.php");
+    exit();
+}
 ?>
 
 
@@ -42,13 +47,13 @@ if(!$_SESSION['username']){
 <div class="container box">
     <div class="left-content">
         <ul>
-            <li class="active">
+            <li>
                 <a href="home.php"><i class="fa fa-list"></i> Raamatud</a>
             </li>
             <?php
             if($_SESSION["admin"] == 1){
                 ?>
-                <li>
+                <li class="active">
                     <a href="users.php"><i class="fa fa-list"></i> Kasutajad</a>
                 </li>
             <?php
@@ -58,7 +63,7 @@ if(!$_SESSION['username']){
     </div>
     <div class="right-content">
         <div class="right-content-header">
-            <div class="pull-left">Raamatud</div>
+            <div class="pull-left">Kasutajad</div>
         </div>
         <div class="clear"></div>
 
@@ -73,29 +78,24 @@ if(!$_SESSION['username']){
 
 
 
-        $books = "SELECT * FROM books";
-        $books_result = mysqli_query($connection, $books);
+        $users = "SELECT * FROM user";
+        $users_result = mysqli_query($connection, $users);
 
-
-
-
-        ?>
-
-
+         ?>
 
 
         <table class="table">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Raamatu nimi</th>
-                <th>Autor</th>
-                <th>Kogus</th>
+                <th>Eesnimi</th>
+                <th>Perekonnanimi</th>
+                <th>E-mail</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            while ($row = $books_result->fetch_assoc()) {
+            while ($row = $users_result->fetch_assoc()) {
                 ?>
                 <tr>
                     <td>
@@ -105,17 +105,17 @@ if(!$_SESSION['username']){
                     </td>
                     <td>
                         <?php
-                        echo  utf8_encode($row['name']);
+                        echo  utf8_encode($row['firstname']);
                         ?>
                     </td>
                     <td>
                         <?php
-                        echo utf8_encode($row['author']);
+                        echo utf8_encode($row['lastname']);
                         ?>
                     </td>
                     <td>
                         <?php
-                        echo  $row['quantity'];
+                        echo  $row['email'];
                         ?>
                     </td>
                 </tr>

@@ -24,6 +24,7 @@
 			$user_id = mysqli_fetch_array($result_user_id, MYSQLI_BOTH);
 			
 			$_SESSION['user_id'] = $user_id["id"];
+            $_SESSION['admin'] = $user_id["admin"];
 			
 			header("Location: ../home.php");
 			exit();
