@@ -1,9 +1,10 @@
 <?php
 
 include ("header.php");
+include ("components/database.php");
 
-if($_SESSION['username']){
-} else {
+if(!$_SESSION['username']){
+
 	header("Location: /raamatukoi/");
 	exit();
 }
@@ -71,78 +72,72 @@ if($_SESSION['username']){
     </div>
     <div class="right-content">
         <div class="right-content-header">
-            <div class="pull-left">Issues</div>
+            <div class="pull-left">Raamatud</div>
         </div>
         <div class="clear"></div>
+
+        <?php
+
+
+
+       // foreach($book as $single_book){
+         //   echo utf8_encode ( $book[1] );
+        //}
+
+
+
+
+        $books = "SELECT * FROM books";
+        $books_result = mysqli_query($connection, $books);
+
+
+
+
+
+
+
+
+
+        ?>
         
         <table class="table">
             <thead>
             <tr>
-                <th width="10"></th>
-                <th><a href="?sort=nr&dir=desc"></i> Nr</a></th>
-                <th><a href="?sort=invoice_nr&dir=desc"></i> Hankija arve nr</a></th>
-                <th><a href="?sort=date&dir=desc"></i> Kuupäev</a></th>
-                <th><a href="?sort=due_date&dir=desc"></i> Tasumistähtaeg</a></th>
-                <th class="text-right"><a href="?sort=date_diff&dir=desc"><i class="fa fa-caret-up"></i> Päevi</a></th>
-                <th></th>
-                <th><a href="?sort=company_name&dir=desc"></i> Hankija</a></th>
-                <th class="text-right"><a href="?sort=balance&dir=desc"></i> Jääk</a></th>
-                <th class="text-right"><a href="?sort=total&dir=desc"></i> Summa</a></th>
-                <th></th>
-                <th width="65" class="text-right">Staatus</th>
-                <!-- 			<th></th> -->
+                <th>ID</th>
+                <th>Raamatu nimi</th>
+                <th>Autor</th>
+                <th>Kogus</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td>
-                    <a href="/invoice/detail?id=66960&back="> 1</a>
-                </td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td class="text-right">
-                    5									</td>
-                <td>
-                    <i class="fa fa-exclamation-triangle fa-red"></i>
-                </td>
-                <td></td>
-                <td class="text-right text-red"></td>
-                <td class="text-right">6 €</td>
-                <td class="text-right">
-                </td>
-                <td class="text-right">
-                    <i class="fa fa-times-circle fa-red"></i>
-                </td>
-                <!--
-                            <td width="10">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-dropdown dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Muuda</a></li>
-                                        <li><a href="#">Kustuta</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                -->
-            </tr>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th class="text-right">Summa kokku:</th>
-                <th class="text-right">9 464,32 €</th>
-                <th></th>
-                <th></th>
-            </tr>
+            <?php
+            while ($row = $books_result->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td>
+                        <?php
+                        echo $row['id'];
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo  utf8_encode($row['name']);
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo utf8_encode($row['author']);
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo  $row['quantity'];
+                        ?>
+                    </td>
+                </tr>
+            <?php
+            }
+            ?>
             </tbody>
         </table>
         <div class="right-content-footer">
@@ -184,13 +179,6 @@ if($_SESSION['username']){
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<script>
-    $(function() {
-        $('#new-msg').click(function() {
-            $('#messages').modal();
-        })
-    });
-</script>
 </body>
 </html>
 
