@@ -13,6 +13,8 @@ if($_SESSION['admin'] == 0){
     header("Location: /raamatukoi/home.php");
     exit();
 }
+
+$date = "";
 ?>
 
 
@@ -92,6 +94,8 @@ if($_SESSION['admin'] == 0){
 
 
 
+
+
         <table class="table">
             <thead>
             <tr>
@@ -101,6 +105,7 @@ if($_SESSION['admin'] == 0){
                 <th>Laenutaja email</th>
                 <th>Laenutamise kuupäev</th>
                 <th>Ettenähtud tagastamise kuupäev</th>
+                <th style="text-align: center;">Tagasta</th>
             </tr>
             </thead>
             <tbody>
@@ -138,6 +143,11 @@ if($_SESSION['admin'] == 0){
                         echo  $row['estimated_return'];
                         ?>
                     </td>
+                    <td style="text-align: center;">
+                        <form method="POST" action="components/return.php?<?php echo "id=".$row['id']; ?>" >
+                            <input type="submit" value="Tagasta" name="delete_submit" />
+                        </form>
+                    </td>
                 </tr>
             <?php
             }
@@ -147,7 +157,7 @@ if($_SESSION['admin'] == 0){
         </table>
 
         <div class="right-content-footer">
-            <div class="paginator-lk pull-left">lk 1 / 3</div>
+            <div class="paginator-lk pull-left">lk 1 / 1</div>
             <ul class="paginator">
                 <li><a href="#" id="next-page"><i class="fa fa-caret-right"></i></a></li>
                 <li><a href="#" id="last-page"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a></li>

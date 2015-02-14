@@ -150,7 +150,7 @@ if($_SESSION['admin'] == 1){
         </table>
 
         <div class="right-content-footer">
-            <div class="paginator-lk pull-left">lk 1 / 3</div>
+            <div class="paginator-lk pull-left">lk 1 / 1</div>
             <ul class="paginator">
                 <li><a href="#" id="next-page"><i class="fa fa-caret-right"></i></a></li>
                 <li><a href="#" id="last-page"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a></li>
