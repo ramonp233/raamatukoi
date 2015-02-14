@@ -46,6 +46,15 @@ if(!$_SESSION['username']){
                 <a href="home.php"><i class="fa fa-list"></i> Raamatud</a>
             </li>
             <?php
+            if($_SESSION["admin"] == 0){
+                ?>
+                <li>
+                    <a href="user-books.php"><i class="fa fa-list"></i> Minu raamatud</a>
+                </li>
+            <?php
+            }
+            ?>
+            <?php
             if($_SESSION["admin"] == 1){
                 ?>
                 <li>

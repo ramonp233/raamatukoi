@@ -8,7 +8,7 @@ if(!$_SESSION['username']){
 	header("Location: /raamatukoi/");
 	exit();
 }
-if($_SESSION['admin'] == 0){
+if($_SESSION['admin'] == 1){
 
     header("Location: /raamatukoi/home.php");
     exit();
@@ -51,12 +51,21 @@ if($_SESSION['admin'] == 0){
                 <a href="home.php"><i class="fa fa-list"></i> Raamatud</a>
             </li>
             <?php
+            if($_SESSION["admin"] == 0){
+            ?>
+            <li class="active">
+                <a href="user-books.php"><i class="fa fa-list"></i> Minu raamatud</a>
+            </li>
+            <?php
+            }
+            ?>
+            <?php
             if($_SESSION["admin"] == 1){
                 ?>
                 <li>
                     <a href="users.php"><i class="fa fa-list"></i> Kasutajad</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="books-out.php"><i class="fa fa-list"></i> Välja antud raamatud</a>
                 </li>
             <?php
@@ -66,7 +75,7 @@ if($_SESSION['admin'] == 0){
     </div>
     <div class="right-content">
         <div class="right-content-header">
-            <div class="pull-left">Välja antud raamatud</div>
+            <div class="pull-left">Raamatud</div>
         </div>
         <div class="clear"></div>
 
@@ -81,8 +90,8 @@ if($_SESSION['admin'] == 0){
 
 
 
-        $user_books = "select user_books.id, user_books.given_out, user_books.estimated_return, user.firstname, user.lastname, user.email, books.name from user_books inner join user on user_books.user_id=user.id inner join books on books.id=user_books.book_id where user_books.actual_return = '0000-00-00' ORDER by user_books.estimated_return asc";
-        $user_books_result = mysqli_query($connection, $user_books);
+        $single_user_books = "select user_books.id, user_books.given_out, user_books.estimated_return, user.firstname, user.lastname, user.email, books.name from user_books inner join user on user_books.user_id=user.id inner join books on books.id=user_books.book_id where user_books.actual_return = '0000-00-00' and user_books.user_id = ". $_SESSION['user_id'] ." ORDER by user_books.estimated_return asc";
+        $single_user_books_result = mysqli_query($connection, $single_user_books);
 
 
 
@@ -95,7 +104,6 @@ if($_SESSION['admin'] == 0){
         <table class="table">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Raamatu nimi</th>
                 <th>Laenutaja nimi</th>
                 <th>Laenutaja email</th>
@@ -105,14 +113,9 @@ if($_SESSION['admin'] == 0){
             </thead>
             <tbody>
             <?php
-            while ($row = $user_books_result->fetch_assoc()) {
+            while ($row = $single_user_books_result->fetch_assoc()) {
                 ?>
                 <tr>
-                    <td>
-                        <?php
-                        echo $row['id'];
-                        ?>
-                    </td>
                     <td>
                         <?php
                         echo  utf8_encode($row['name']);
