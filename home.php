@@ -105,7 +105,13 @@ if(!$_SESSION['username']){
                 <th>Raamatu nimi</th>
                 <th>Autor</th>
                 <th>Kogus</th>
-                <th style="text-align: center;">Laenuta välja</th>
+                <?php
+                if($_SESSION["admin"] == 1) {
+                    ?>
+                    <th style="text-align: center;">Laenuta välja</th>
+                <?php
+                }
+                ?>
             </tr>
             </thead>
             <tbody>
@@ -133,30 +139,38 @@ if(!$_SESSION['username']){
                         echo  $row['quantity'];
                         ?>
                     </td>
+                    <?php
+                    if($_SESSION["admin"] == 1) {
+                    ?>
                     <td style="text-align: center;">
-                        <form method="POST" action="components/return.php?<?php echo "book_id=".$row['id']; ?>">
-                            <select name="name_ids">
-                                <?php
-                                $names_list = "select id, firstname, lastname from user order by firstname asc";
-                                $names_list_result = mysqli_query($connection, $names_list);
-                                while ($row_names = $names_list_result->fetch_assoc()) {
-                                    $i = 1;
-                                    ?>
-                                    <option value="<?php echo $row_names['id']; ?>">
-                                        <?php
-                                          echo utf8_encode($row_names['firstname']) . " " . utf8_encode($row_names['lastname']);
 
+                            <form method="POST" action="components/return.php?<?php echo "book_id=" . $row['id']; ?>">
+                                <select name="name_ids">
+                                    <?php
+                                    $names_list = "select id, firstname, lastname from user order by firstname asc";
+                                    $names_list_result = mysqli_query($connection, $names_list);
+                                    while ($row_names = $names_list_result->fetch_assoc()) {
+                                        $i = 1;
                                         ?>
-                                    </option>
+                                        <option value="<?php echo $row_names['id']; ?>">
+                                            <?php
+                                            echo utf8_encode($row_names['firstname']) . " " . utf8_encode($row_names['lastname']);
 
-                                <?php
-                                    $i = $i++;
-                                }
-                                ?>
-                            </select>
-                            <input type="submit" name="give-out" value="Laenuta välja">
-                        </form>
+                                            ?>
+                                        </option>
+
+                                        <?php
+                                        $i = $i++;
+                                    }
+                                    ?>
+                                </select>
+                                <input type="submit" name="give-out" value="Laenuta välja">
+                            </form>
+
                     </td>
+                    <?php
+                    }
+                    ?>
                 </tr>
             <?php
             }
