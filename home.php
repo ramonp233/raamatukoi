@@ -8,6 +8,8 @@ if(!$_SESSION['username']){
 	header("Location: /raamatukoi/");
 	exit();
 }
+
+
 ?>
 
 
@@ -132,9 +134,29 @@ if(!$_SESSION['username']){
                         ?>
                     </td>
                     <td style="text-align: center;">
-                        <button><i class="fa fa-book"></i></button>
-                    </td>
+                        <form method="POST" action="components/return.php?<?php echo "book_id=".$row['id']; ?>">
+                            <select name="name_ids">
+                                <?php
+                                $names_list = "select id, firstname, lastname from user order by firstname asc";
+                                $names_list_result = mysqli_query($connection, $names_list);
+                                while ($row_names = $names_list_result->fetch_assoc()) {
+                                    $i = 1;
+                                    ?>
+                                    <option value="<?php echo $row_names['id']; ?>">
+                                        <?php
+                                          echo utf8_encode($row_names['firstname']) . " " . utf8_encode($row_names['lastname']);
 
+                                        ?>
+                                    </option>
+
+                                <?php
+                                    $i = $i++;
+                                }
+                                ?>
+                            </select>
+                            <input type="submit" name="give-out" value="Laenuta välja">
+                        </form>
+                    </td>
                 </tr>
             <?php
             }

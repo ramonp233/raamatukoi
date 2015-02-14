@@ -995,3 +995,13 @@ a:focus{
 #doc-upload #queue .fileinfo, #doc-upload #queue .close {
 	display: none;
 }
+.left-content ul li{
+    padding: 0;
+    line-height: 55px;
+}
+.left-content ul li a{
+    display: block;
+    width: 100%;
+    margin-left: 10px;
+    height: 100%;
+}
