@@ -31,7 +31,7 @@
 			
 		} else {
 			echo "Invalid login information!";
-			
 		}
 	}
+
 ?>

@@ -3,7 +3,7 @@
 include ("header.php");
 include ("components/database.php");
 
-if(!$_SESSION['username']){
+if(!$_SESSION['user_id']){
 
 	header("Location: /raamatukoi/");
 	exit();
@@ -36,7 +36,7 @@ $date = "";
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><?php echo $_SESSION['username']; ?><b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['firstname']; ?><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <a href="#">Minu andmed</a></li>
                         <li><a href="components/logout.php">Logi välja</a></li>
@@ -120,12 +120,12 @@ $date = "";
                     </td>
                     <td>
                         <?php
-                        echo  utf8_encode($row['name']);
+                        echo  $row['name'];
                         ?>
                     </td>
                     <td>
                         <?php
-                        echo utf8_encode($row['firstname'] . " " . $row['lastname']);
+                        echo $row['firstname'] . " " . $row['lastname'];
                         ?>
                     </td>
                     <td>

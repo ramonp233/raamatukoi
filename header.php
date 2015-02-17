@@ -8,7 +8,6 @@
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Raamatukoi</title>
     <link href="css/bootstrap.min.css?2014-04-01" rel="stylesheet">
